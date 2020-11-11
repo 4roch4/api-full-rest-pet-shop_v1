@@ -1,0 +1,43 @@
+#-------------------------------------------------------------------------------------------------------------
+# Copyright (c) Microsoft Corporation. All rights reserved.
+# Licensed under the MIT License. See https://go.microsoft.com/fwlink/?linkid=2090316 for license information.
+#-------------------------------------------------------------------------------------------------------------
+
+version: '3.1'
+services:
+  api-full-rest:
+    image: mcr.microsoft.com/vscode/devcontainers/typescript-node:0-10
+    container_name: backend
+    volumes:
+      - ../../api-full-rest:/workspace/api-full-rest:cached
+    command: /bin/sh -c "while sleep 1000; do :; done"
+    ports:
+      - "3000:3000"
+    expose:
+      - "3000"
+    networks:
+      - backend
+    depends_on:
+      - db
+
+  db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    container_name: backend-db
+    environment:
+      - MYSQL_ROOT_PASSWORD=root123
+      - MYSQL_DATABASE=agenda-petshop
+      - MYSQL_USER=app
+      - MYSQL_PASSWORD=123456
+    volumes:
+      - ../../api-full-rest/db:/workspace/var/lib/mysql
+    ports:
+      - "3307:3306"
+    expose:
+      - "3307"
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge

@@ -1,0 +1,16 @@
+// For format details, see https://aka.ms/vscode-remote/devcontainer.json or this file's README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.128.0/containers/typescript-node-10
+
+{
+	"name": "Api Full Rest",
+	"dockerComposeFile": ["./docker-compose.yml"],
+	"service": "api-full-rest",
+	"shutdownAction": "none",
+	"extensions": [
+		"eamodio.gitlens",
+		"kisstkondoros.vscode-codemetrics",
+		"mutantdino.resourcemonitor"
+	],
+	// Open the sub-folder with the source code
+	"workspaceFolder": "/workspace/api-full-rest"
+  }
